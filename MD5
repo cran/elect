@@ -1,0 +1,10 @@
+1dea82aa05f1995581723b98553a1f0b *DESCRIPTION
+497c4fbb21c8f8cbdd51d76296de5f73 *NAMESPACE
+bce190d2e464ea51e2fb2fa45aa40ff5 *R/elect_functions_1.1.r
+29a2f22bd90588b473e1ed9e3ed9af1f *data/ELECTData.rda
+cbcb891a28a7eb684de34e9fc65b9918 *man/ELECTData.Rd
+bfb53d9b3767cd4382f9eec7211114a0 *man/check.RestrAndConst.elect.Rd
+90ba2d211b14783ba27dd6b2b1c68ab3 *man/elect.Rd
+3b371791fdae5a2a94981f61607ff9e8 *man/plot.elect.Rd
+7753fe1c90a019f42cac97c2dcb4c77a *man/plusmin.elect.Rd
+8d59edb50f4dcc132cfb896527c141d6 *man/summary.elect.Rd

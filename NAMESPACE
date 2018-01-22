@@ -1,0 +1,8 @@
+exportPattern("^[[:alpha:]]+")
+importFrom("graphics", "par", "plot")
+importFrom("stats", "as.formula", "density", "quantile", "rnorm", "sd","vcov")
+importFrom("msm", "MatrixExp")
+importFrom("nnet", "multinom")
+
+S3method(plot, elect)
+S3method(summary, elect)
