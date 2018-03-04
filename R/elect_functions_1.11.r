@@ -1,9 +1,8 @@
-# Functions for elect package. Version 1.1
+# Functions for elect package. Version 1.11
 
 # Ardo van den Hout Cambridge 2010 - UCL 2018
-# Function elect() includes code Mei Sum Chan, UCL 2017
-
-
+# Function elect() includes code by Mei Sum Chan,
+# UCL 2018
 
 
 ################################################
@@ -43,70 +42,55 @@ elect <- function(x, b.covariates, statedistdata,
 ##########################
 # Input checks:
 if(model$center==TRUE){
-  stop("\nERROR. LEs not computed. In msm() model use
-       argument <center = FALSE>.\n\n")
+  stop("\nIn msm() model use argument <center = FALSE>.\n\n")
 }
 if(model$call$death!=TRUE){
-  stop("\nERROR. LEs not computed. msm() model should be illness-
-       death model with the death state as final state with exact times.
-       Use argument <death = TRUE>.\n\n")
+  stop("\nModel in msm() should be illness-death model with the death state as final state with exact times. Use argument <death = TRUE>.\n\n")
 }
 if(model$call$formula[3]!="age()"){
-    stop("\nERROR. LEs not computed. First covariate in msm() model
-       should be <age>.\n\n")
+    stop("\nFirst covariate in msm() model should be <age>.\n\n")
 }
 if(is.character(time.scale.msm)){
   if(!time.scale.msm%in%c("years","months","weeks")){
-    stop("\nERROR. LEs not computed. Choose time scale to be <years>,
-       <months>, <weeks>, or a numeric value.\n\n")
+    stop("\nChoose time scale to be <years>, <months>, <weeks>, or a numeric value.\n\n")
   }
 }
 if(is.numeric(time.scale.msm)){
   if(time.scale.msm<0 | 1<time.scale.msm){
-    stop("\nERROR. LEs not computed. Numeric for time scale has to be
-       between 0 and 1.\n\n")
+    stop("\nNumeric for time scale has to be between 0 and 1.\n\n")
   }
 }
 if(h<=0){
-    stop("\nERROR. LEs not computed. Choose h > 0.\n\n")
+    stop("\nChoose <h> larger than 0.\n\n")
 }
 if(round(S)!=S | S<0){
-    stop("\nERROR. LEs not computed. <S> should be non-negative
-       integer. Choose <S=0> for no simulations.\n\n")
+    stop("\n<S> should be non-negative integer. Choose <S=0> for no simulations.\n\n")
 }
 if(age.max<=b.covariates$age){
-    stop("\nERROR. LEs not computed. <max.age> should be larger than
-       starting age in <b.covariates>.\n\n")
+    stop("\nLEs<max.age> should be larger than starting age in <b.covariates>.\n\n")
 }
 if(!method%in%c("step","Simpson","MiddleRiemann")){
-    stop("\nERROR. LEs not computed. <method> should be <step>,
-       <MiddleRiemann> or <Simpson>.\n\n")
+    stop("\n<method> should be <step>, <MiddleRiemann> or <Simpson>.\n\n")
 }
 if(!"state"%in%names(statedistdata)){
-    stop("\nERROR. LEs not computed. <state> should be
-       variable in <statedistdata>.\n\n")
+    stop("\n<state> should be variable in <statedistdata>.\n\n")
 }
 if(!"age"%in%names(statedistdata)){
-    stop("\nERROR. LEs not computed. <age> should be
-       variable in <statedistdata>.\n\n")
+    stop("\n<age> should be variable in <statedistdata>.\n\n")
 }
 if(!"age"%in%statedist.covariates){
-    stop("\nERROR. LEs not computed. <age> should be
-       covariate for model for state prevalence.\n\n")
+    stop("\n <age> should be covariate for model for state prevalence.\n\n")
 }
 for(i in 1:length(statedist.covariates)){
   if(!statedist.covariates[i]%in%names(statedistdata)){
-   stop("\nERROR. LEs not computed. <",statedist.covariates[i],"> should
-       be variable in <statedistdata>.\n\n")
+   stop("\n<",statedist.covariates[i],"> should be variable in <statedistdata>.\n\n")
   }
 }
 if(length(statedist.covariates)>length(b.covariates)){
-  stop("\nERROR. Number of covariates for model for state prevalence
-       should not exceed number of covariates for msm model.\n\n")
+  stop("\nNumber of covariates for model for state prevalence should not exceed number of covariates for msm model.\n\n")
 }
 if(is.null(model$covmat)){
-  stop("\nERROR. Fitted model in msm has no covariance-variance matrix.
-       Using ELECT is not recommended.\n\n")
+  stop("\nFitted model in msm has no covariance-variance matrix. Using ELECT is not recommended.\n\n")
 }
 
 #######################
@@ -130,6 +114,11 @@ ncovs <- 1+length(b.covariates)
 # Intensities parameters (ignoring paramtrs for misclassification):
 # (Note that #parameters for transitions; may be different from #betas)
 nbeta <- max(which(names(model$estimates)=="qcov"))
+# Check:
+if(nbeta!=(ntrans*ncovs)){
+  stop("\nAll covariates in msm model should be specified in the elect call.\n\n")
+}
+# If check = OK:
 beta  <- matrix(model$estimates[1:nbeta],ntrans,ncovs,byrow=FALSE)
 
 # Baseline age:
@@ -272,8 +261,11 @@ if(!MCfitted){
   nparLE <-  max(which(names(model$opt$par)=="qcov"))
   Sigma  <- solve(1/2*model$opt$hessian)[1:nparLE,1:nparLE]
   mu     <- model$opt$par[1:nparLE]
-  nfixed <- max(which(names(model$fixedpars)=="qcov"))
-  fixedpars <- model$fixedpars[1:nfixed]
+  fixedpars <- 0
+  if(!is.null(model$call$fixedpars)){
+    nfixed <- max(which(names(model$fixedpars)=="qcov"))
+    fixedpars <- model$fixedpars[1:nfixed]
+  }  
 }
 L <- length(mu)
 

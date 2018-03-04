@@ -1,0 +1,9 @@
+elect 1.1 (Release date: 2018-01-22)
+- First version of package on CRAN
+- Older versions of code can be found on the maintainer's homepage
+
+elect 1.1.1 (Release date: 2018-03-04)
+Changes:
+- Bug fixed w.r.t. the combination of using <ematrix> and <fixedpars> in msm-call
+- New error message for covariates mismatch in the elect-call and in the msm-call
+- Format of all error messsages tidied up
