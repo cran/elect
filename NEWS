@@ -1,9 +1,18 @@
-elect 1.1 (Release date: 2018-01-22)
+# elect 1.1.2 (Release date: May 10th, 2018)
+Changes:
+- New function <explore>: to explore data for an age-dependent model
+- New function <hazards>: to depict fitted hazards for an age-dependent model
+- Added variable to ELECTData: first observation indicator <bsline>
+- In <summary>: minor change in presentation of state-distribution model
+- Examples in help files: data for state-distribution model is selected differently
+- In function <elect>: added component in return list: <sd.covar.values>
+
+# elect 1.1.1 (Release date: March 4th, 2018)
+Changes:
+- Bug fixed w.r.t. the combination of using <ematrix> and <fixedpars> in msm call
+- New error message for covariates mismatch in the elect call and in the msm call
+- Format of all error messsages tidied up
+
+# elect 1.1 (Release date: January 22nd, 2018)
 - First version of package on CRAN
 - Older versions of code can be found on the maintainer's homepage
-
-elect 1.1.1 (Release date: 2018-03-04)
-Changes:
-- Bug fixed w.r.t. the combination of using <ematrix> and <fixedpars> in msm-call
-- New error message for covariates mismatch in the elect-call and in the msm-call
-- Format of all error messsages tidied up

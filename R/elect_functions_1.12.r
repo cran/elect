@@ -1,4 +1,4 @@
-# Functions for elect package. Version 1.11
+# Functions for elect package. Version 1.12
 
 # Ardo van den Hout Cambridge 2010 - UCL 2018
 # Function elect() includes code by Mei Sum Chan,
@@ -246,6 +246,7 @@ if(nstatesBaseline>1){
 }else{
  sd.model <- NA
  sd.model.inits <- NA
+ sd.covars.values <- NA
 }
 
 ####################################
@@ -262,10 +263,10 @@ if(!MCfitted){
   Sigma  <- solve(1/2*model$opt$hessian)[1:nparLE,1:nparLE]
   mu     <- model$opt$par[1:nparLE]
   fixedpars <- 0
-  if(!is.null(model$call$fixedpars)){
+  if(!is.null(model$call$fixedpars) & "qcov"%in%names(model$fixedpars)){
     nfixed <- max(which(names(model$fixedpars)=="qcov"))
     fixedpars <- model$fixedpars[1:nfixed]
-  }  
+  }
 }
 L <- length(mu)
 
@@ -408,7 +409,8 @@ names(LE.pnt)<-c(names.LE1[-1],names.LE2[-1],"e")
 # Function returns list with R objects:
 LEs <- list(pnt=LE.pnt,sim=LEs,h=h,covars=b.covariates,S=S,
        model=model,sd.model=sd.model,
-       sd.model.inits=sd.model.inits)
+       sd.model.inits=sd.model.inits,
+       sd.covars.values = sd.covars.values)
 
 # Class:
 LEs$call <- match.call()
@@ -461,7 +463,7 @@ summary.elect <- function(object,probs=c(.025,0.5,.975),digits=3,
      cat("\n-----------------------------\n")
      cat("ELECT summary\n")
      cat("-----------------------------\n")
-     cat("Covariates values in the multi-state model:\n")
+     cat("Covariate values in the multi-state model:\n")
      print(unlist(LEs$covars))
      # Output the sd.model if asked for (and if fitted):
      sd.model.fitted <-  !(is.na(LEs$sd.model)[1])
@@ -471,21 +473,23 @@ summary.elect <- function(object,probs=c(.025,0.5,.975),digits=3,
        cat("Covariates in the state-distribution model:\n  ",sd.covars,"\n\n")
      }
      if(sd.model.fitted & sd.model==TRUE){
-       # Output summary of sd.model:
+       # Output covariates used in sd.model:
+       sd.covars <- attr(LEs$sd.model$terms,"term.labels")
        cat("\nFitted model for state-distribution model:\n")
        print(summary(LEs$sd.model),digits=digits)
        cat("\n")
-       cat("Predicted distribution for start states:\n")
-       print(round(LEs$sd.model.inits, digits))
+       cat("Predicted distribution for start states\n")
+       cat("given specified value(s) for ", sd.covars, ":\n")
+       cat(round(LEs$sd.model.inits, digits),"\n")
        cat("\n")
-     }
+       }
      if(!sd.model.fitted & sd.model==TRUE){
        # Output info on no sd.model:
        cat("\nNo state-distribution model was fitted.\n")
      }
      cat("Life expectancies:")
      if(LEs$S>0){
-      cat("Using simulation with ",LEs$S,"replications\n")
+      cat("\nUsing simulation with ",LEs$S,"replications\n")
       cat("\nPoint estimates, and mean, SEs, and quantiles from simulation:\n")
     }else{cat("\nPoint estimates:\n")}
     print(round(out,digits))

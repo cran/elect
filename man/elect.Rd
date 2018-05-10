@@ -69,9 +69,9 @@ model <- msm(state~age, subject = id, data = ELECTData,
              covariates = ~age+x)
 
 # Estimate life expectancies:
-sddata <- ELECTData[ELECTData$state < 3,]
-LEs    <- elect(x = model, b.covariates = list(age = 0, x = 1),
-                statedistdata=sddata, h = 0.5, age.max = 50, S = 25)
+sddata <- ELECTData[ELECTData$bsline == 1,]
+LEs    <- elect(x = model, b.covariates = list(age = 0, x = 0),
+                statedistdata = sddata, h = 0.5, age.max = 50, S = 25)
 summary(LEs)
 plot(LEs)     # For smoother graphs, increase S
 }

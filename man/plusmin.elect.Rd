@@ -61,9 +61,9 @@ model <- msm(state~age, subject = id, data = ELECTData,
              covariates = ~age+x)
 
 # Estimate function of life expectancies:
-sddata <- ELECTData[ELECTData$state < 3,]
+sddata <- ELECTData[ELECTData$bsline == 1,]
 LEs    <- elect(x = model, b.covariates = list(age = 0, x = 1),
-                statedistdata=sddata, h = 0.5, age.max = 50, S = 25)
+                statedistdata = sddata, h = 0.5, age.max = 50, S = 25)
 plusmin.elect(LEs, index = c(2,4), func = "plus")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
