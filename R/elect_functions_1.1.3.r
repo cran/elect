@@ -1,4 +1,4 @@
-# Functions for elect package. Version 1.12
+# Functions for elect package. Version 1.1.3
 
 # Ardo van den Hout Cambridge 2010 - UCL 2018
 # Function elect() includes code by Mei Sum Chan,
@@ -39,13 +39,17 @@ elect <- function(x, b.covariates, statedistdata,
   # Rename x:
   model <- x
 
+  # Number of states and corresponding Q matrix:
+  nstates <- nrow(model$Qmatrices$baseline)
+
+
 ##########################
 # Input checks:
 if(model$center==TRUE){
   stop("\nIn msm() model use argument <center = FALSE>.\n\n")
 }
-if(model$call$death!=TRUE){
-  stop("\nModel in msm() should be illness-death model with the death state as final state with exact times. Use argument <death = TRUE>.\n\n")
+if(sum(model$Qmatrices$logbaseline[nstates,1:(nstates-1)])!=0){
+  stop("\nModel in msm() should be illness-death model with the death state as final state.\n\n")
 }
 if(model$call$formula[3]!="age()"){
     stop("\nFirst covariate in msm() model should be <age>.\n\n")
@@ -100,8 +104,7 @@ if(time.scale.msm=="months"){   scale <- 12}
 if(time.scale.msm=="weeks"){    scale <- 52}
 if(is.numeric(time.scale.msm)){ scale <- 1/time.scale.msm}
 
-# Number of states and corresponding Q matrix:
-nstates <- nrow(model$Qmatrices$baseline)
+# Q matrix:
 Q.null  <- matrix(as.numeric(model$Qmatrices$baseline!=0),nstates,nstates)
 diag(Q.null) <- 0
 

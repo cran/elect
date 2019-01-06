@@ -92,7 +92,7 @@ plot.age.grid <- age.grid - age.shift
 # Plot transition hazards:
 L <- length(age.grid)
 plot(x=c(plot.age.grid[1],plot.age.grid[L]),y=c(min.haz,max.haz),
-     type="n", xlab = "Age", ylab = "Hazards")
+     type="n", xlab = "Age", ylab = "Hazards",las=1)
 # Loop over the hazards:
 for(i in 1:ntrans){
   haz   <- rep(NA,L)
@@ -100,8 +100,11 @@ for(i in 1:ntrans){
   hazLB <- rep(NA,L)
   hazUB <- rep(NA,L)
   for(j in 1:L){
-    covariates <- c(age=age.grid[j],
-                    b.covariates[2:length(b.covariates)])
+    if(ncovs==2){
+      covariates <- list(age = age.grid[j])
+    }else{
+      covariates <- c(age = age.grid[j], b.covariates[2:length(b.covariates)])
+    }
     haz[j] <- qmatrix.msm(model,
                     covariates = covariates,
                     ci="none")[trans[i,1],trans[i,2]]
