@@ -1,5 +1,5 @@
-\name{ELECTData}
-\alias{ELECTData}
+\name{electData}
+\alias{electData}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
  Three-state data for exploring \code{elect}
@@ -8,7 +8,7 @@
 Simulated longitudinal data for a three-state illness-death process.
 }
 \usage{
-ELECTData
+electData
 }
 %- maybe also 'usage' for other objects documented here.
 \format{
@@ -31,11 +31,11 @@ Ardo van den Hout
 }
 \examples{
 # Sample size:
-print(length(unique(ELECTData$id)))
+print(length(unique(electData$id)))
 # Frequencies number of observation per individual:
-print(table(table(ELECTData$id)))
+print(table(table(electData$id)))
 # State table
-print(statetable.msm(state, id, data = ELECTData))
+print(statetable.msm(state, id, data = electData))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

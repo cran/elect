@@ -56,7 +56,7 @@ List with specified covariates values for the prediction (ignore intercept)
 }
 }
 \details{
-This function is an add-on to the functionallity in the 'msm' package. A Gompertz model with age as the time scale can be fitted in 'msm' piecewise-constantly by adding age as a covariate. The function \code{qmatrix.msm} is used by \code{hazards} repeatedly to take into account the age dependence when calculating the hazards.
+This function is an add-on to the functionality in the 'msm' package. A Gompertz model with age as the time scale can be fitted in 'msm' piecewise-constantly by adding age as a covariate. The function \code{qmatrix.msm} is used by \code{hazards} repeatedly to take into account the age dependence when calculating the hazards.
 }
 %\value{
 %\item{intervals }{
@@ -83,8 +83,8 @@ Ardo van den Hout. With thanks to Ying Lou.
 \examples{
 # Fit msm model:
 Q     <- rbind(c(0,0.01,0.01), c(0,0,0.01), c(0,0,0))
-model <- msm(state~age, subject = id, data = ELECTData,
-             center = FALSE, qmatrix = Q, death = TRUE,
+model <- msm(state~age, subject = id, data = electData,
+             center = FALSE, qmatrix = Q, deathexact = TRUE,
              covariates = ~age+x)
 # Plot hazards on original age scale:
 hazards(model, b.covariates = list(age = 0, x = 0),

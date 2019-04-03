@@ -51,7 +51,7 @@ Ardo van den Hout
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{elect}}, \code{\link{plusmin.elect}}, \code{\link{plot.elect}}
+\code{\link{elect}}, \code{\link{plusmin}}, \code{\link{plot.elect}}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

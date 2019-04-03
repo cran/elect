@@ -1,9 +1,12 @@
 # Function to plot age-dependent hazards for
 # a model fitted with 'msm'
 
-# Ardo, UCL 2018.
+# Ardo van den Hout, Cambridge 2010 - UCL 2019
+# Mei Sum Chan, UCL 2018
+
 # With thanks to Ying Lou for discussing functionality
 
+#################################################################
 hazards <- function(x, b.covariates ,
                     no.years, trans = NULL,
                     max.haz = .5, min.haz =0, CI = FALSE,

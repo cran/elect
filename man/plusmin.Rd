@@ -1,4 +1,5 @@
-\name{plusmin.elect}
+\name{plusmin}
+\alias{plusmin}
 \alias{plusmin.elect}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -8,7 +9,7 @@
 Compute an additive function of a series of estimated life expectancies
 }
 \usage{
-plusmin.elect(x, index = NA, func = "plus", probs = c(0.025, 0.5, 0.975), digits = 3)
+plusmin(x, index = NA, func = "plus", probs = c(0.025, 0.5, 0.975), digits = 3)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -56,15 +57,15 @@ Ardo van den Hout
 \examples{
 # Fit msm model:
 Q     <- rbind(c(0,0.01,0.01), c(0,0,0.01), c(0,0,0))
-model <- msm(state~age, subject = id, data = ELECTData,
-             center = FALSE, qmatrix = Q, death = TRUE,
+model <- msm(state~age, subject = id, data = electData,
+             center = FALSE, qmatrix = Q, deathexact = TRUE,
              covariates = ~age+x)
 
 # Estimate function of life expectancies:
-sddata <- ELECTData[ELECTData$bsline == 1,]
+sddata <- electData[electData$bsline == 1,]
 LEs    <- elect(x = model, b.covariates = list(age = 0, x = 1),
                 statedistdata = sddata, h = 0.5, age.max = 50, S = 25)
-plusmin.elect(LEs, index = c(2,4), func = "plus")
+plusmin(LEs, index = c(2,4), func = "plus")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

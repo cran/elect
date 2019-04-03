@@ -64,7 +64,7 @@ Ardo van den Hout. With thanks to Ying Lou.
 %\code{\link{elect}}
 %}
 \examples{
-explore(ELECTData)
+explore(electData)
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the

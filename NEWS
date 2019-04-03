@@ -1,9 +1,16 @@
+# elect 1.2 (Release date: April 4th, 2019)
+Changes:
+- All instances of "ELECT" changed to "elect". Including data: "electData"
+- R files reorganised: each function now has its own file
+- Functions <plusmin> and <check.RestrAndConst> can now be used without the .elect extension
+- In examples: argument death = TRUE in msm call changed to deathexact = TRUE
+- Function <plot.elect> adapted: argument <which> also works now for >3 states
+
 # elect 1.1.3 (Release date: January 6th, 2019)
 Changes:
 - Function <hazards> now uses horizontal labels on y-axis
 - Function <hazards> now also works for model with no covariates other than age
 - Function <elect> now also works with model for interval-censored death times
-
 
 # elect 1.1.2 (Release date: May 10th, 2018)
 Changes:

@@ -1,4 +1,5 @@
-\name{check.RestrAndConst.elect}
+\name{check.RestrAndConst}
+\alias{check.RestrAndConst}
 \alias{check.RestrAndConst.elect}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -8,7 +9,7 @@ Checking the definition of \code{RestrAndConst} in \code{elect}
 Function to check the definition of \code{RestrAndConst} in the \code{elect} call.
 }
 \usage{
-check.RestrAndConst.elect(x, RestrAndConst, PRINT = FALSE)
+check.RestrAndConst(x, RestrAndConst, PRINT = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -46,11 +47,11 @@ Ardo van den Hout
 \examples{
 # Fit model with constraints:
 Q     <- rbind(c(0,0.01,0.01), c(0,0,0.01), c(0,0,0))
-model <- msm(state~age, subject = id, data = ELECTData,
-             center = FALSE, qmatrix = Q, death = TRUE,
+model <- msm(state~age, subject = id, data = electData,
+             center = FALSE, qmatrix = Q, deathexact = TRUE,
              fixedpars = c(7,8), covariates = ~age+x)
 RestrAndConst <- c(1:6,0,0,7)
-CHECK <- check.RestrAndConst.elect(model, RestrAndConst, PRINT= TRUE)
+check.RestrAndConst(model, RestrAndConst, PRINT= TRUE)
 
 # Usage: elect(x = model,..., RestrAndConst = RestrAndConst)
 }

@@ -1,12 +1,14 @@
 # Function to explore data for use with 'msm' and 'elect'
 
-# Ardo, UCL 2018
+# Ardo van den Hout, Cambridge 2010 - UCL 2019
+# Mei Sum Chan, UCL 2018
+
 # With thanks to Ying Lou for discussing functionality
 
 
+###########################################################
 # This function explores longitudinal data in
 # long format with <age> as time scale.
-
 explore <- function(data = NULL, id = NULL, state = NULL,
              age = NULL, digits = 3, HIST = TRUE,
              hist.col = c("green","red","blue"),
